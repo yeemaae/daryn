@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db import models
-
 
 class DataBase(models.Model):
     daryn_id = models.IntegerField(primary_key=True)

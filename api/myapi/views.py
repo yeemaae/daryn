@@ -1,7 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from .models import DataBase
-from django.core.serializers import serialize
 
 data_base = DataBase.objects.all()
 
@@ -19,7 +17,7 @@ def teacher(request):
         field_names = [field.name for field in DataBase._meta.fields]
 
         # Fetch data from the database and construct dictionaries for each row
-        data = [{field_name: getattr(obj, field_name) for field_name in field_names} for obj in DataBase.objects.all()]
+        data = [{field_name: getattr(obj, field_name) for field_name in field_names} for obj in data_base]
 
         # Filter data based on the value of 'send_to_nobd' field
         filtered_data = [row for row in data if row.get('send_to_nobd') == 2]
@@ -39,7 +37,7 @@ def student(request):
         field_names = [field.name for field in DataBase._meta.fields]
 
         # Fetch data from the database and construct dictionaries for each row
-        data = [{field_name: getattr(obj, field_name) for field_name in field_names} for obj in DataBase.objects.all()]
+        data = [{field_name: getattr(obj, field_name) for field_name in field_names} for obj in data_base]
 
         # Filter data based on the value of 'send_to_nobd' field
         filtered_data = [row for row in data if row.get('send_to_nobd') == 1]
